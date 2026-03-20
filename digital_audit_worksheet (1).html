@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Digital Audit Worksheet – 7th Grade Tech</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --bg: #f5f0e8;
+    --card: #ffffff;
+    --accent1: #ff6b6b;
+    --accent2: #4ecdc4;
+    --accent3: #ffe66d;
+    --accent4: #a78bfa;
+    --accent5: #f97316;
+    --border: 2.5px solid var(--ink);
+    --shadow: 4px 4px 0px var(--ink);
+    --shadow-lg: 6px 6px 0px var(--ink);
+    --radius: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Nunito', sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    padding: 24px 16px 60px;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(255,107,107,0.08) 0%, transparent 40%),
+      radial-gradient(circle at 85% 70%, rgba(78,205,196,0.10) 0%, transparent 40%);
+  }
+
+  .page-header {
+    max-width: 780px;
+    margin: 0 auto 32px;
+    text-align: center;
+    position: relative;
+  }
+
+  .badge {
+    display: inline-block;
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--accent3);
+    border: var(--border);
+    border-radius: 99px;
+    padding: 4px 14px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  h1 {
+    font-size: clamp(28px, 5vw, 46px);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 10px;
+  }
+  h1 span { color: var(--accent1); }
+
+  .subtitle {
+    font-size: 15px;
+    font-weight: 600;
+    color: #555;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .objectives-strip {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .obj-pill {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 6px 14px;
+    border: var(--border);
+    border-radius: 99px;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .obj-pill.a { background: var(--accent1); }
+  .obj-pill.b { background: var(--accent2); }
+  .obj-pill.c { background: var(--accent4); color: white; }
+
+  .worksheet {
+    max-width: 780px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  /* Student Info Card */
+  .info-card {
+    background: var(--accent3);
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 20px 24px;
+  }
+  .info-card h2 {
+    font-size: 13px;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 14px;
+  }
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  @media (max-width: 500px) { .info-grid { grid-template-columns: 1fr; } }
+
+  .field-group label {
+    display: block;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+  .field-group input, .field-group select {
+    width: 100%;
+    padding: 8px 12px;
+    border: var(--border);
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: white;
+    outline: none;
+    transition: box-shadow 0.15s;
+  }
+  .field-group input:focus, .field-group select:focus {
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+
+  /* Section Cards */
+  .section-card {
+    background: var(--card);
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+  }
+
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px 22px;
+    border-bottom: var(--border);
+  }
+  .section-header.s1 { background: var(--accent1); }
+  .section-header.s2 { background: var(--accent2); }
+  .section-header.s3 { background: var(--accent4); }
+  .section-header.s4 { background: var(--accent5); }
+
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    width: 40px;
+    height: 40px;
+    background: white;
+    border: var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 3px 3px 0 var(--ink);
+  }
+  .section-header.s3 .section-num,
+  .section-header.s4 .section-num { color: var(--ink); }
+
+  .section-title-block h3 {
+    font-size: 17px;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+  .section-title-block .tag {
+    font-size: 11px;
+    font-weight: 700;
+    font-family: 'Space Mono', monospace;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    opacity: 0.75;
+  }
+
+  .section-body {
+    padding: 22px 22px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .question {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .q-label {
+    font-size: 14px;
+    font-weight: 800;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .q-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px;
+    font-weight: 700;
+    background: var(--ink);
+    color: white;
+    padding: 2px 7px;
+    border-radius: 99px;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .q-hint {
+    font-size: 12px;
+    font-weight: 600;
+    color: #888;
+    margin-left: 32px;
+    font-style: italic;
+  }
+
+  textarea {
+    width: 100%;
+    padding: 10px 14px;
+    border: var(--border);
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    resize: vertical;
+    min-height: 70px;
+    background: #fafafa;
+    transition: box-shadow 0.15s;
+    outline: none;
+  }
+  textarea:focus { box-shadow: 3px 3px 0 var(--ink); background: white; }
+
+  input[type="text"].short {
+    padding: 8px 12px;
+    border: var(--border);
+    border-radius: 8px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    background: #fafafa;
+    outline: none;
+    width: 100%;
+    transition: box-shadow 0.15s;
+  }
+  input[type="text"].short:focus { box-shadow: 3px 3px 0 var(--ink); background: white; }
+
+  /* Rating scale */
+  .rating-scale {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-left: 32px;
+  }
+  .rating-scale label {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: 11px;
+    font-weight: 700;
+  }
+  .rating-scale input[type="radio"] { display: none; }
+  .rating-dot {
+    width: 34px;
+    height: 34px;
+    border: var(--border);
+    border-radius: 50%;
+    background: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    font-weight: 700;
+    transition: all 0.12s;
+  }
+  .rating-scale input[type="radio"]:checked + .rating-dot {
+    background: var(--ink);
+    color: white;
+    transform: scale(1.1);
+    box-shadow: 3px 3px 0 rgba(0,0,0,0.3);
+  }
+
+  /* Checklist */
+  .checklist {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 32px;
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 8px 12px;
+    border: var(--border);
+    border-radius: 8px;
+    background: #fafafa;
+    transition: all 0.12s;
+    user-select: none;
+  }
+  .check-item:hover { background: var(--bg); }
+  .check-item input[type="checkbox"] { display: none; }
+  .checkmark {
+    width: 22px;
+    height: 22px;
+    border: var(--border);
+    border-radius: 6px;
+    background: white;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 13px;
+    transition: all 0.12s;
+  }
+  .check-item input:checked ~ .checkmark {
+    background: var(--ink);
+    color: white;
+  }
+  .check-item input:checked ~ span { text-decoration: line-through; opacity: 0.6; }
+
+  /* Two-col layout inside section */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+  }
+  @media (max-width: 540px) { .two-col { grid-template-columns: 1fr; } }
+
+  /* Divider */
+  .divider {
+    border: none;
+    border-top: 2px dashed #ccc;
+    margin: 2px 0;
+  }
+
+  /* Verdict box */
+  .verdict-box {
+    border: var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-top: 4px;
+  }
+  .verdict-header {
+    background: var(--ink);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 8px 14px;
+  }
+  .verdict-choices {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border-top: none;
+  }
+  @media (max-width: 480px) { .verdict-choices { grid-template-columns: 1fr; } }
+  .verdict-choice {
+    padding: 14px 12px;
+    text-align: center;
+    cursor: pointer;
+    border-right: var(--border);
+    transition: all 0.12s;
+    position: relative;
+  }
+  .verdict-choice:last-child { border-right: none; }
+  .verdict-choice input[type="radio"] { display: none; }
+  .verdict-choice .v-emoji { font-size: 26px; display: block; }
+  .verdict-choice .v-label {
+    font-size: 12px;
+    font-weight: 800;
+    display: block;
+    margin-top: 4px;
+  }
+  .verdict-choice:has(input:checked) { background: var(--accent3); }
+  .verdict-choice:hover { background: var(--bg); }
+
+  /* Score tracker */
+  .score-card {
+    background: var(--ink);
+    color: white;
+    border: var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-lg);
+    padding: 22px 24px;
+  }
+  .score-card h3 {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 16px;
+    opacity: 0.7;
+  }
+  .score-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+  @media (max-width: 480px) { .score-grid { grid-template-columns: 1fr 1fr; } }
+  .score-box {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    border-radius: 10px;
+    padding: 12px;
+    text-align: center;
+  }
+  .score-box .s-label { font-size: 10px; font-weight: 700; opacity: 0.6; text-transform: uppercase; letter-spacing: 0.08em; }
+  .score-box input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 1.5px solid rgba(255,255,255,0.4);
+    color: white;
+    font-family: 'Space Mono', monospace;
+    font-size: 22px;
+    font-weight: 700;
+    text-align: center;
+    outline: none;
+    padding: 4px 0;
+    margin-top: 4px;
+  }
+  .teacher-comment label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    opacity: 0.6;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .teacher-comment textarea {
+    background: rgba(255,255,255,0.08);
+    border: 1.5px solid rgba(255,255,255,0.2);
+    color: white;
+    border-radius: 8px;
+  }
+  .teacher-comment textarea::placeholder { color: rgba(255,255,255,0.35); }
+
+  /* Print styles */
+  @media print {
+    body { background: white; padding: 10px; }
+    .section-card, .info-card, .score-card { box-shadow: none; break-inside: avoid; }
+    textarea, input { border: 1px solid #999 !important; }
+  }
+
+  /* Animations */
+  .section-card, .info-card, .score-card {
+    animation: slideUp 0.3s ease both;
+  }
+  .section-card:nth-child(2) { animation-delay: 0.05s; }
+  .section-card:nth-child(3) { animation-delay: 0.10s; }
+  .section-card:nth-child(4) { animation-delay: 0.15s; }
+  .section-card:nth-child(5) { animation-delay: 0.20s; }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .print-btn {
+    display: block;
+    margin: 0 auto;
+    padding: 14px 36px;
+    background: var(--ink);
+    color: white;
+    border: var(--border);
+    border-radius: 99px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: var(--shadow);
+    transition: transform 0.12s, box-shadow 0.12s;
+    letter-spacing: 0.02em;
+  }
+  .print-btn:hover { transform: translate(-2px,-2px); box-shadow: var(--shadow-lg); }
+  @media print { .print-btn { display: none; } }
+</style>
+</head>
+<body>
+
+<div class="page-header">
+  <div class="badge">🔍 7th Grade Technology</div>
+  <h1>Digital <span>Audit</span><br>Worksheet</h1>
+  <p class="subtitle">Analyze a real influencer's online presence and what it says about their digital identity.</p>
+  <div class="objectives-strip">
+    <div class="obj-pill a">🦶 Digital Footprint</div>
+    <div class="obj-pill b">🪞 Online Identity</div>
+    <div class="obj-pill c">💼 Professionalism</div>
+  </div>
+</div>
+
+<div class="worksheet">
+
+  <!-- Student Info -->
+  <div class="info-card">
+    <h2>📋 Student Info</h2>
+    <div class="info-grid">
+      <div class="field-group">
+        <label>Your Name</label>
+        <input type="text" placeholder="First Last">
+      </div>
+      <div class="field-group">
+        <label>Date</label>
+        <input type="text" placeholder="MM / DD / YYYY">
+      </div>
+      <div class="field-group">
+        <label>Period / Class</label>
+        <input type="text" placeholder="e.g. Period 3">
+      </div>
+      <div class="field-group">
+        <label>Influencer You're Analyzing</label>
+        <input type="text" placeholder="Name or username">
+      </div>
+    </div>
+  </div>
+
+  <!-- Section 1: Meet Your Influencer -->
+  <div class="section-card">
+    <div class="section-header s1">
+      <div class="section-num">1</div>
+      <div class="section-title-block">
+        <div class="tag">🦶 Digital Footprint</div>
+        <h3>Meet Your Influencer</h3>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">1.1</span> What platforms is this influencer active on? Check all that apply.</div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>YouTube</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>Instagram</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>TikTok</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>X / Twitter</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>Snapchat</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>Twitch / Streaming</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>Podcast / Audio</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark"></span><span>Other (write below)</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">1.2</span> Describe the type of content this influencer mostly posts. What is their niche or topic?</div>
+        <div class="q-hint">Think: gaming, beauty, cooking, sports commentary, comedy, education, etc.</div>
+        <textarea placeholder="Describe their content here..."></textarea>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">1.3</span> How long do you think this influencer has been creating content online? What clues helped you figure this out?</div>
+        <div class="q-hint">Look at post dates, follower counts, early vs. recent videos, etc.</div>
+        <textarea placeholder="Your estimate and reasoning..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 2: Footprint Deep Dive -->
+  <div class="section-card">
+    <div class="section-header s1">
+      <div class="section-num">2</div>
+      <div class="section-title-block">
+        <div class="tag">🦶 Digital Footprint</div>
+        <h3>Footprint Deep Dive</h3>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">2.1</span> List 3 pieces of <strong>personal information</strong> this influencer has publicly shared online (e.g. their city, school, real name, family members, daily routine).</div>
+        <div class="q-hint">Be specific — note where you found each piece of info.</div>
+        <div style="display:flex;flex-direction:column;gap:8px;margin-left:32px">
+          <input type="text" class="short" placeholder="1. Information → where you found it">
+          <input type="text" class="short" placeholder="2. Information → where you found it">
+          <input type="text" class="short" placeholder="3. Information → where you found it">
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">2.2</span> Do you think this influencer is careful about what personal information they share? Rate it:</div>
+        <div class="rating-scale">
+          <label><input type="radio" name="careful"><span class="rating-dot">1</span><span>Not at all</span></label>
+          <label><input type="radio" name="careful"><span class="rating-dot">2</span></label>
+          <label><input type="radio" name="careful"><span class="rating-dot">3</span><span>Somewhat</span></label>
+          <label><input type="radio" name="careful"><span class="rating-dot">4</span></label>
+          <label><input type="radio" name="careful"><span class="rating-dot">5</span><span>Very careful</span></label>
+        </div>
+        <div style="margin-left:32px;margin-top:8px">
+          <textarea style="min-height:55px" placeholder="Explain your rating with at least one example..."></textarea>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">2.3</span> If you searched this influencer's name 5 years from now, what kinds of posts or content do you think would still show up? Why does that matter?</div>
+        <textarea placeholder="Think about what lasts forever online..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 3: Online Identity -->
+  <div class="section-card">
+    <div class="section-header s2">
+      <div class="section-num">3</div>
+      <div class="section-title-block">
+        <div class="tag">🪞 Online Identity</div>
+        <h3>Who Are They Online?</h3>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">3.1</span> In 3–5 words, how would you describe this influencer's <em>online persona</em> — the version of themselves they show to the world?</div>
+        <div class="q-hint">Example: "funny, relatable, fashion-focused, motivational"</div>
+        <input type="text" class="short" style="margin-left:32px;max-width:400px" placeholder="Their online identity in a few words...">
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">3.2</span> Do you think their online identity matches who they really are in real life? Explain your thinking.</div>
+        <div class="q-hint">Consider: Do they ever "break character"? Share personal struggles? Seem authentic?</div>
+        <textarea placeholder="Your thoughts on real vs. online self..."></textarea>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">3.3</span> Think about the values this influencer seems to represent. What messages do they send — on purpose or accidentally — to their audience?</div>
+        <textarea placeholder="Values, messages, and themes in their content..."></textarea>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">3.4</span> Has this influencer ever posted something that got them in trouble (drama, controversy, backlash)? If yes, describe it briefly. If no, describe a risk you think they could face.</div>
+        <textarea placeholder="Describe a real or potential controversy..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 4: Professionalism Check -->
+  <div class="section-card">
+    <div class="section-header s3">
+      <div class="section-num">4</div>
+      <div class="section-title-block">
+        <div class="tag">💼 Online Professionalism</div>
+        <h3>Professionalism Check</h3>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">4.1</span> Review the checklist below. Check off any professional behaviors you've seen this influencer demonstrate:</div>
+        <div class="checklist">
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Responds to comments kindly and respectfully</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Clearly labels ads or sponsored content</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Acknowledges mistakes and apologizes when wrong</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Keeps content appropriate for their audience</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Avoids insulting or attacking others publicly</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Maintains a consistent, recognizable brand</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Uses proper grammar/spelling in important posts</span></label>
+          <label class="check-item"><input type="checkbox"><span class="checkmark">✓</span><span>Gives credit to others (music, ideas, collabs)</span></label>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">4.2</span> What is one moment where this influencer acted professionally? What is one moment where they could have done better?</div>
+        <div class="two-col">
+          <div>
+            <div style="font-size:12px;font-weight:800;margin-bottom:6px;color:green">✅ Professional Moment</div>
+            <textarea placeholder="Describe a moment when they handled something well..."></textarea>
+          </div>
+          <div>
+            <div style="font-size:12px;font-weight:800;margin-bottom:6px;color:#cc3300">⚠️ Could Do Better</div>
+            <textarea placeholder="Describe a moment they could have acted more professionally..."></textarea>
+          </div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">4.3</span> Imagine this influencer applies for a real job or college in the future. Based on what you found, what might an employer think when they look them up online?</div>
+        <textarea placeholder="What first impression would their digital footprint make?"></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Section 5: Reflection + Verdict -->
+  <div class="section-card">
+    <div class="section-header s4">
+      <div class="section-num">5</div>
+      <div class="section-title-block">
+        <div class="tag">🧠 Big Picture Reflection</div>
+        <h3>Your Verdict</h3>
+      </div>
+    </div>
+    <div class="section-body">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">5.1</span> What is the most surprising thing you discovered during this audit?</div>
+        <textarea placeholder="Something unexpected you found or realized..."></textarea>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">5.2</span> If this influencer could give their younger self ONE piece of advice about managing their digital footprint, what do you think they'd say?</div>
+        <textarea placeholder="Write it as if you're the influencer giving advice..."></textarea>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">5.3</span> What is ONE thing you will do differently with your own online presence after completing this worksheet?</div>
+        <textarea placeholder="Your personal takeaway and action step..."></textarea>
+      </div>
+
+      <hr class="divider">
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">5.4</span> Overall, what is your verdict on this influencer's digital footprint and online professionalism?</div>
+        <div class="verdict-box">
+          <div class="verdict-header">Your Verdict</div>
+          <div class="verdict-choices">
+            <label class="verdict-choice">
+              <input type="radio" name="verdict">
+              <span class="v-emoji">🌟</span>
+              <span class="v-label">Role Model — Great example to follow</span>
+            </label>
+            <label class="verdict-choice">
+              <input type="radio" name="verdict">
+              <span class="v-emoji">🤔</span>
+              <span class="v-label">Mixed Bag — Some good, some risky</span>
+            </label>
+            <label class="verdict-choice">
+              <input type="radio" name="verdict">
+              <span class="v-emoji">⚠️</span>
+              <span class="v-label">Cautionary Tale — Lots to learn from</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="question">
+        <div class="q-label"><span class="q-num">5.5</span> Defend your verdict above in 2–3 sentences. Use specific evidence from your audit.</div>
+        <textarea placeholder="Justify your verdict with examples..."></textarea>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Teacher Scoring -->
+  <div class="score-card">
+    <h3>📝 Teacher Use Only</h3>
+    <div class="score-grid">
+      <div class="score-box">
+        <div class="s-label">Digital Footprint<br>/30 pts</div>
+        <input type="text" placeholder="—">
+      </div>
+      <div class="score-box">
+        <div class="s-label">Online Identity<br>/30 pts</div>
+        <input type="text" placeholder="—">
+      </div>
+      <div class="score-box">
+        <div class="s-label">Professionalism<br>/25 pts</div>
+        <input type="text" placeholder="—">
+      </div>
+      <div class="score-box">
+        <div class="s-label">Reflection<br>/15 pts</div>
+        <input type="text" placeholder="—">
+      </div>
+      <div class="score-box">
+        <div class="s-label">Total Score<br>/100 pts</div>
+        <input type="text" placeholder="—">
+      </div>
+      <div class="score-box">
+        <div class="s-label">Grade</div>
+        <input type="text" placeholder="—">
+      </div>
+    </div>
+    <div class="teacher-comment">
+      <label>Teacher Comments</label>
+      <textarea placeholder="Feedback for the student..." style="min-height:80px"></textarea>
+    </div>
+  </div>
+
+  <button class="print-btn" onclick="window.print()">🖨️ Print / Save as PDF</button>
+
+</div>
+
+</body>
+</html>
